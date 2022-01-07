@@ -1,4 +1,4 @@
-module github.com/aykamko/tag
+module github.com/thelonelyghost/tag
 
 go 1.16
 
