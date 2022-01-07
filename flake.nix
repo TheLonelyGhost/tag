@@ -1,0 +1,45 @@
+{
+  description = "A basic flake with a shell";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.flake-compat = {
+    url = "github:edolstra/flake-compat";
+    flake = false;
+  };
+
+  outputs = { self, nixpkgs, flake-utils, flake-compat }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs { inherit system; };
+
+      tag = pkgs.buildGoModule {
+        pname = "tag";
+        version = "1.4.0";
+        src = ./.;
+        vendorSha256 = "sha256-wspcVQWCSCioXH3YstP4pu22DlMkX2HiINxiFP/CCMM=";
+
+        meta = {
+          description = "Instantly jump to your ag or ripgrep matches";
+          homepage = "https://github.com/thelonelyghost/tag";
+        };
+      };
+    in {
+      devShell = pkgs.mkShell {
+        nativeBuildInputs = [
+          pkgs.bashInteractive
+          pkgs.go
+        ];
+        buildInputs = [
+        ];
+      };
+
+      packages = {
+        inherit tag;
+      };
+      defaultPackage = tag;
+
+      apps = {
+        inherit tag;
+      };
+      defaultApp = tag;
+    });
+}
