@@ -6,10 +6,14 @@
     url = "github:edolstra/flake-compat";
     flake = false;
   };
+  inputs.overlays.url = "github:thelonelyghost/blank-overlay-nix";
 
-  outputs = { self, nixpkgs, flake-utils, flake-compat }:
+  outputs = { self, nixpkgs, flake-utils, flake-compat, overlays }:
     flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [overlays.overlays.default];
+      };
 
       tag = pkgs.buildGoModule {
         pname = "tag";

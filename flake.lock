@@ -47,11 +47,27 @@
         "type": "github"
       }
     },
+    "overlays": {
+      "locked": {
+        "lastModified": 1668714812,
+        "narHash": "sha256-9p9XjBWHnrYNlmfnIPnohBiSIPSVM9SbVKsHXIrWN1c=",
+        "owner": "thelonelyghost",
+        "repo": "blank-overlay-nix",
+        "rev": "8e18a869b1d2a09b479e5cb9230604da772f89c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thelonelyghost",
+        "repo": "blank-overlay-nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "overlays": "overlays"
       }
     }
   },
