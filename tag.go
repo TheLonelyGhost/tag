@@ -181,24 +181,24 @@ func passThrough(cmd *exec.Cmd) int {
 }
 
 func validateSearchProg(prog string) error {
-	switch prog {
+	switch filepath.Base(prog) {
 	case "ag", "rg":
 		return nil
 	default:
 		return fmt.Errorf(
-			"invalid environment variable TAG_SEARCH_PROG='%s'. only 'ag' and 'rg' are supported.",
+			"invalid environment variable TAG_SEARCH_PROG='%s'. only 'ag' and 'rg' are supported",
 			prog)
 	}
 }
 
 func constructTagArgs(searchProg string, userArgs []string) []string {
 	if isatty(os.Stdout) {
-		switch searchProg {
+		switch filepath.Base(searchProg) {
 		case "ag":
 			return []string{"--group", "--color", "--column"}
 		case "rg":
 			// ripgrep can't handle more than one --color option, so if the user provides one
-			// we have to explicilty keep tag from passing its own --color option
+			// we have to explicitly keep tag from passing its own --color option
 			if optionIndex(userArgs, "--color") >= 0 {
 				return []string{"--heading", "--column"}
 			}
@@ -209,7 +209,7 @@ func constructTagArgs(searchProg string, userArgs []string) []string {
 }
 
 func handleColorSetting(prog string, args []string) {
-	switch prog {
+	switch filepath.Base(prog) {
 	case "ag":
 		color.NoColor = (optionIndex(args, "--nocolor") >= 0)
 	case "rg":
