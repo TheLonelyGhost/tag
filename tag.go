@@ -113,7 +113,7 @@ func tagPrefix(aliasIndex int) string {
 	return blue("[") + red("%d", aliasIndex) + blue("]")
 }
 
-func generateTags(cmd *exec.Cmd) int {
+func generateTags(cmd *exec.Cmd, knownFiles []string) int {
 	cmd.Stderr = os.Stderr
 
 	stdout, err := cmd.StdoutPipe()
@@ -136,6 +136,11 @@ func generateTags(cmd *exec.Cmd) int {
 
 	err = cmd.Start()
 	check(err)
+
+	if len(knownFiles) == 1 {
+		// When a single file is given to the command, regex parsing breaks and we need to spoof that it's there
+		curPath = knownFiles[0]
+	}
 
 	for scanner.Scan() {
 		line = scanner.Bytes()
@@ -240,6 +245,14 @@ func main() {
 		os.Exit(passThrough(cmd))
 	}
 
+	var knownFiles []string
+	for _, arg := range userArgs {
+		_, err := os.Stat(arg)
+		if err == nil {
+			knownFiles = append(knownFiles, filepath.Clean(arg))
+		}
+	}
+
 	handleColorSetting(searchProg, finalArgs)
-	os.Exit(generateTags(cmd))
+	os.Exit(generateTags(cmd, knownFiles))
 }
