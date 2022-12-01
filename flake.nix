@@ -15,11 +15,11 @@
         overlays = [overlays.overlays.default];
       };
 
-      tag = pkgs.buildGoModule {
+      tag = pkgs.buildGo119Module {
         pname = "tag";
         version = "1.4.0";
         src = ./.;
-        vendorSha256 = "sha256-wspcVQWCSCioXH3YstP4pu22DlMkX2HiINxiFP/CCMM=";
+        vendorSha256 = "sha256-rEb6Q6b3+XKY+8Pn6xkNMLqUeKaqXCdFwh3Sd6NePs4=";
 
         meta = {
           description = "Instantly jump to your ag or ripgrep matches";
