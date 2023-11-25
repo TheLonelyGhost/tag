@@ -19,7 +19,7 @@
         pname = "tag";
         version = "1.4.0";
         src = ./.;
-        vendorSha256 = "sha256-rEb6Q6b3+XKY+8Pn6xkNMLqUeKaqXCdFwh3Sd6NePs4=";
+        vendorHash = "sha256-rEb6Q6b3+XKY+8Pn6xkNMLqUeKaqXCdFwh3Sd6NePs4=";
 
         meta = {
           description = "Instantly jump to your ag or ripgrep matches";
