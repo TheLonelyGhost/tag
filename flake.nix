@@ -27,7 +27,7 @@
         };
       };
     in {
-      devShell = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         nativeBuildInputs = [
           pkgs.bashInteractive
           pkgs.go
@@ -38,12 +38,13 @@
 
       packages = {
         inherit tag;
+
+        default = tag;
       };
-      defaultPackage = tag;
 
       apps = {
         inherit tag;
+        default = tag;
       };
-      defaultApp = tag;
     });
 }
