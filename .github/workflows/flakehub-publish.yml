@@ -19,4 +19,4 @@ name: "Publish every Git push to main to FlakeHub"
 on:
   push:
     branches:
-      - main
+      - master
