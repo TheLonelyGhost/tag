@@ -41,10 +41,5 @@
 
         default = tag;
       };
-
-      apps = {
-        inherit tag;
-        default = tag;
-      };
     });
 }
